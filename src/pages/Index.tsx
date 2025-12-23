@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
+import { AnimatePresence } from "framer-motion";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import ProductGrid from "@/components/ProductGrid";
 import About from "@/components/About";
 import Footer from "@/components/Footer";
 import Cart from "@/components/Cart";
+import Checkout from "@/components/Checkout";
 
 interface Product {
   id: number;
@@ -24,6 +26,7 @@ interface CartItem extends Product {
 const Index = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
   const handleAddToCart = (product: Product) => {
     setCartItems((prev) => {
@@ -57,7 +60,32 @@ const Index = () => {
     toast.info("Item removed from cart");
   };
 
+  const handleCheckout = () => {
+    setIsCartOpen(false);
+    setIsCheckoutOpen(true);
+  };
+
+  const handleCheckoutComplete = () => {
+    setCartItems([]);
+    setIsCheckoutOpen(false);
+  };
+
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+
+  if (isCheckoutOpen) {
+    return (
+      <>
+        <AnimatePresence mode="wait">
+          <Checkout
+            items={cartItems}
+            onBack={() => setIsCheckoutOpen(false)}
+            onComplete={handleCheckoutComplete}
+          />
+        </AnimatePresence>
+        <Toaster position="bottom-right" />
+      </>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-background">
@@ -72,6 +100,7 @@ const Index = () => {
         items={cartItems}
         onUpdateQuantity={handleUpdateQuantity}
         onRemoveItem={handleRemoveItem}
+        onCheckout={handleCheckout}
       />
       <Toaster position="bottom-right" />
     </main>

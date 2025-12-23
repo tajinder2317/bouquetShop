@@ -16,9 +16,10 @@ interface CartProps {
   items: CartItem[];
   onUpdateQuantity: (id: number, quantity: number) => void;
   onRemoveItem: (id: number) => void;
+  onCheckout: () => void;
 }
 
-const Cart = ({ isOpen, onClose, items, onUpdateQuantity, onRemoveItem }: CartProps) => {
+const Cart = ({ isOpen, onClose, items, onUpdateQuantity, onRemoveItem, onCheckout }: CartProps) => {
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
@@ -138,7 +139,7 @@ const Cart = ({ isOpen, onClose, items, onUpdateQuantity, onRemoveItem }: CartPr
                 <p className="text-sm text-muted-foreground">
                   Shipping and taxes calculated at checkout
                 </p>
-                <Button variant="hero" size="xl" className="w-full">
+                <Button variant="hero" size="xl" className="w-full" onClick={onCheckout}>
                   Proceed to Checkout
                 </Button>
               </div>
