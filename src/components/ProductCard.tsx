@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ShoppingBag, Heart } from "lucide-react";
 import { useState } from "react";
@@ -30,7 +31,7 @@ const ProductCard = ({ product, onAddToCart, index }: ProductCardProps) => {
       transition={{ duration: 0.6, delay: index * 0.1 }}
     >
       {/* Image Container */}
-      <div className="relative aspect-square overflow-hidden">
+      <Link to={`/product/${product.id}`} className="block relative aspect-square overflow-hidden">
         <img
           src={product.image}
           alt={product.name}
@@ -44,40 +45,42 @@ const ProductCard = ({ product, onAddToCart, index }: ProductCardProps) => {
         <span className="absolute top-4 left-4 bg-background/90 backdrop-blur-sm text-foreground text-xs font-medium px-3 py-1.5 rounded-full">
           {product.category}
         </span>
+      </Link>
 
-        {/* Wishlist Button */}
-        <button
-          onClick={() => setIsLiked(!isLiked)}
-          className="absolute top-4 right-4 w-10 h-10 bg-background/90 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
-          aria-label={isLiked ? "Remove from wishlist" : "Add to wishlist"}
-        >
-          <Heart
-            className={`h-5 w-5 transition-colors ${
-              isLiked ? "fill-accent text-accent" : "text-foreground/60"
-            }`}
-          />
-        </button>
+      {/* Wishlist Button */}
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          setIsLiked(!isLiked);
+        }}
+        className="absolute top-4 right-4 w-10 h-10 bg-background/90 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 z-10"
+        aria-label={isLiked ? "Remove from wishlist" : "Add to wishlist"}
+      >
+        <Heart
+          className={`h-5 w-5 transition-colors ${
+            isLiked ? "fill-accent text-accent" : "text-foreground/60"
+          }`}
+        />
+      </button>
 
-        {/* Quick Add Button */}
-        <motion.div
-          className="absolute bottom-4 left-4 right-4"
-          initial={{ opacity: 0, y: 20 }}
-          whileHover={{ opacity: 1, y: 0 }}
+      {/* Quick Add Button */}
+      <div className="absolute bottom-[calc(100%-theme(spacing.4)-theme(spacing.square))] left-4 right-4 pointer-events-none">
+        <Button
+          variant="hero"
+          size="lg"
+          className="w-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-auto"
+          onClick={(e) => {
+            e.preventDefault();
+            onAddToCart(product);
+          }}
         >
-          <Button
-            variant="hero"
-            size="lg"
-            className="w-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            onClick={() => onAddToCart(product)}
-          >
-            <ShoppingBag className="h-4 w-4 mr-2" />
-            Add to Cart
-          </Button>
-        </motion.div>
+          <ShoppingBag className="h-4 w-4 mr-2" />
+          Add to Cart
+        </Button>
       </div>
 
       {/* Content */}
-      <div className="p-5">
+      <Link to={`/product/${product.id}`} className="block p-5">
         <h3 className="font-serif text-xl font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
           {product.name}
         </h3>
@@ -91,13 +94,16 @@ const ProductCard = ({ product, onAddToCart, index }: ProductCardProps) => {
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => onAddToCart(product)}
+            onClick={(e) => {
+              e.preventDefault();
+              onAddToCart(product);
+            }}
             className="md:hidden"
           >
             <ShoppingBag className="h-4 w-4" />
           </Button>
         </div>
-      </div>
+      </Link>
     </motion.article>
   );
 };
