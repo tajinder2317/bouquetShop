@@ -30,7 +30,7 @@ const Header = ({ cartCount, onCartClick }: HeaderProps) => {
             transition={{ duration: 0.5 }}
           >
             <span className="text-2xl md:text-3xl font-serif font-semibold text-primary">
-              Bloom & Petal
+              Bouquet Shop
             </span>
           </motion.a>
 
