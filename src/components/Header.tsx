@@ -30,7 +30,7 @@ const Header = ({ cartCount, onCartClick }: HeaderProps) => {
             transition={{ duration: 0.5 }}
           >
             <span className="text-2xl md:text-3xl font-serif font-semibold text-primary">
-              Bouquet Shop
+              Petals&Co.
             </span>
           </motion.a>
 
@@ -79,7 +79,11 @@ const Header = ({ cartCount, onCartClick }: HeaderProps) => {
               className="md:hidden"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {isMenuOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
             </Button>
           </div>
         </div>
