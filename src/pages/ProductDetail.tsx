@@ -150,7 +150,7 @@ const ProductDetail = () => {
             </h1>
 
             <p className="text-3xl font-semibold text-primary mb-6">
-              ${product.price.toFixed(2)}
+              Rs.{product.price.toFixed(2)}
             </p>
 
             <p className="text-muted-foreground text-lg leading-relaxed mb-8">
@@ -215,12 +215,12 @@ const ProductDetail = () => {
                   onClick={handleAddToCart}
                 >
                   <ShoppingBag className="w-5 h-5 mr-2" />
-                  Add to Cart - ${(product.price * quantity).toFixed(2)}
+                  Add to Cart - Rs.{(product.price * quantity).toFixed(2)}
                 </Button>
               </div>
 
               <p className="text-sm text-muted-foreground text-center">
-                Free delivery on orders over $75
+                Free delivery on orders over Rs.75
               </p>
             </div>
           </motion.div>

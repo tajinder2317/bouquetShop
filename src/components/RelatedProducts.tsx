@@ -40,7 +40,7 @@ const RelatedProducts = ({ products }: RelatedProductsProps) => {
                   {product.name}
                 </h3>
                 <p className="text-primary font-semibold mt-2">
-                  ${product.price.toFixed(2)}
+                  Rs.{product.price.toFixed(2)}
                 </p>
               </div>
             </Link>

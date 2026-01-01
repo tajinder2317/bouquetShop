@@ -116,7 +116,7 @@ const Footer = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
         >
           <p className="text-primary-foreground/60 text-sm">
-            © 2024 Bloom & Petal. All rights reserved.
+            © 2026 Bloom & Petal. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm">
             <a href="#" className="text-primary-foreground/60 hover:text-primary-foreground transition-colors">
