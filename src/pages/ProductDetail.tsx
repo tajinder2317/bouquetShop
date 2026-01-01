@@ -1,7 +1,14 @@
 import { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, ShoppingBag, Heart, Minus, Plus, Check } from "lucide-react";
+import {
+  ArrowLeft,
+  ShoppingBag,
+  Heart,
+  Minus,
+  Plus,
+  Check,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getProductById, getRelatedProducts } from "@/data/products";
 import ReviewSection from "@/components/ReviewSection";
@@ -78,7 +85,9 @@ const ProductDetail = () => {
       return;
     }
     setCartItems((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, quantity: newQuantity } : item))
+      prev.map((item) =>
+        item.id === id ? { ...item, quantity: newQuantity } : item
+      )
     );
   };
 
@@ -109,34 +118,38 @@ const ProductDetail = () => {
         </Link>
 
         {/* Product Section */}
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16">
+        <div className="grid lg:grid-cols-2  gap-8 lg:gap-16">
           {/* Image */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="relative aspect-square rounded-2xl overflow-hidden"
-          >
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-full h-full object-cover"
-            />
-            <button
-              onClick={() => setIsLiked(!isLiked)}
-              className="absolute top-4 right-4 w-12 h-12 bg-background/90 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
-              aria-label={isLiked ? "Remove from wishlist" : "Add to wishlist"}
+          <div className="p-5">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className="relative aspect-square rounded-2xl overflow-hidden p-2"
             >
-              <Heart
-                className={`h-6 w-6 transition-colors ${
-                  isLiked ? "fill-accent text-accent" : "text-foreground/60"
-                }`}
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-full h-full object-cover rounded-[1.5rem]  transition-all duration-500 hover:scale-105"
               />
-            </button>
-            <span className="absolute top-4 left-4 bg-background/90 backdrop-blur-sm text-foreground text-sm font-medium px-4 py-2 rounded-full">
-              {product.category}
-            </span>
-          </motion.div>
+              <button
+                onClick={() => setIsLiked(!isLiked)}
+                className="absolute top-4 right-4 w-12 h-12 bg-background/90 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                aria-label={
+                  isLiked ? "Remove from wishlist" : "Add to wishlist"
+                }
+              >
+                <Heart
+                  className={`h-6 w-6  transition-colors ${
+                    isLiked ? "fill-accent text-accent" : "text-foreground/60"
+                  }`}
+                />
+              </button>
+              <span className="absolute top-4 left-4 bg-background/90 backdrop-blur-sm text-foreground text-sm font-medium px-4 py-2 rounded-full">
+                {product.category}
+              </span>
+            </motion.div>
+          </div>
 
           {/* Details */}
           <motion.div
@@ -164,7 +177,10 @@ const ProductDetail = () => {
               </h3>
               <ul className="space-y-2">
                 {product.includes.map((item, index) => (
-                  <li key={index} className="flex items-center gap-2 text-muted-foreground">
+                  <li
+                    key={index}
+                    className="flex items-center gap-2 text-muted-foreground"
+                  >
                     <Check className="w-4 h-4 text-primary flex-shrink-0" />
                     {item}
                   </li>
@@ -179,7 +195,10 @@ const ProductDetail = () => {
               </h3>
               <ul className="space-y-2">
                 {product.careInstructions.map((instruction, index) => (
-                  <li key={index} className="flex items-start gap-2 text-muted-foreground">
+                  <li
+                    key={index}
+                    className="flex items-start gap-2 text-muted-foreground"
+                  >
                     <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
                     {instruction}
                   </li>
@@ -198,7 +217,9 @@ const ProductDetail = () => {
                   >
                     <Minus className="w-4 h-4" />
                   </button>
-                  <span className="w-12 text-center font-semibold">{quantity}</span>
+                  <span className="w-12 text-center font-semibold">
+                    {quantity}
+                  </span>
                   <button
                     onClick={() => setQuantity(quantity + 1)}
                     className="w-12 h-12 flex items-center justify-center hover:bg-muted transition-colors"
